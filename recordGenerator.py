@@ -17,7 +17,7 @@ def generateNumber():
     :return:
     """
 
-    numType = 2      #random.randint(0, 6)
+    numType = 4      #random.randint(0, 6)
     number = []
     if numType == 0:
         for i in range(2):
@@ -46,6 +46,28 @@ def generateNumber():
 
         number.append(' ')
 
+        for i in range(4):
+            number.append(random.randint(0, 9))
+    elif numType == 3:
+        number.append('(')
+        for i in range(3):
+            number.append(random.randint(0, 9))
+
+        number.append(')')
+        number.append(' ')
+
+        for i in range(3):
+            number.append(random.randint(0, 9))
+
+        number.append('-')
+
+        for i in range(4):
+            number.append(random.randint(0, 9))
+    elif numType == 4:
+        for i in range(2):
+            for k in range(3):
+                number.append(random.randint(0, 9))
+            number.append('.')
         for i in range(4):
             number.append(random.randint(0, 9))
 
