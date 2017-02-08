@@ -1,5 +1,5 @@
 # python 3.4
-# TODO: generate phone numbers in a variety of formats
+# TODO: generate US phone numbers in a variety of formats
 import random
 
 
@@ -17,7 +17,7 @@ def generateNumber():
     :return:
     """
 
-    numType = 1      #random.randint(0, 6)
+    numType = 2      #random.randint(0, 6)
     number = []
     if numType == 0:
         for i in range(2):
@@ -33,11 +33,27 @@ def generateNumber():
             number.append('-')
         for i in range(4):
             number.append((random.randint(0, 9)))
+    elif numType == 2:
+        number.append('(')
+        for i in range(3):
+            number.append(random.randint(0, 9))
 
+        number.append(')')
+        number.append(' ')
+
+        for i in range(3):
+            number.append(random.randint(0, 9))
+
+        number.append(' ')
+
+        for i in range(4):
+            number.append(random.randint(0, 9))
 
     #print(number)
-    #for digit in number:
-        #print(digit, end='', flush=True)
+    """
+    for digit in number:
+        print(digit, end='', flush=True)
+    """
 
 
 generateNumber()
