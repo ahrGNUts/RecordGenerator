@@ -32,6 +32,14 @@ except IOError:
     print("Surname name file not found.")
 
 
+def pullName(filename):
+    with open(filename) as namefile:
+        names = []
+        for name in namefile:
+            names.append(name)
+        idx = random.randint(0, MALE_LENGTH)
+        return names[idx]
+
 def generateFirstName(gender):
     """
         randomly pulls a first name from a file depending on a
@@ -42,20 +50,10 @@ def generateFirstName(gender):
 
     if gender == 'M':
         # open male name file, generate random number, pull name at that line number
-        with open('mFirst.txt') as namefile:
-            names = []
-            for name in namefile:
-                names.append(name)
-            idx = random.randint(0, MALE_LENGTH)
-            return names[idx]
+        return pullName('mFile')
     else:
         # open female name file, generate random number, pull name at that line number
-        with open('fFirst.txt') as namefile:
-            names = []
-            for name in namefile:
-                names.append(name)
-            idx = random.randint(0, FEMALE_LENGTH)
-            return names[idx]
+        return pullName('fFile')
 
 
 def generateLastName():
