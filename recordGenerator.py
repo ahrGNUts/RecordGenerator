@@ -33,6 +33,11 @@ except IOError:
 
 
 def pullName(filename):
+    """
+
+    :param filename filename of a name file:
+    :return a string male or female name at idx index:
+    """
     with open(filename) as namefile:
         names = []
         for name in namefile:
@@ -61,15 +66,15 @@ def generateLastName():
         randomly pulls a first name from a file depending on a
         randomly generated line number
 
-        :return :
+        :return |string| surname:
     """
+    return pullName('surnames.txt')
 
 
 def generateGender():
     """
         randomly generates a gender and is used to determine a record's first name
         for simplicity, M/F is used
-
 
         :return |char| 'M' or 'F':
     """
@@ -82,9 +87,17 @@ def generateGender():
         return 'F'
 
 
+def generateNumberSet(numList, numDigits):
+    """
+
+    :param numList -- list to have digits appended:
+    :param numDigits -- number of digits appended to numList:
+    """
+    for i in range(numDigits):
+        numList.append(random.randint(0, 9))
 
 
-def generateNumber():
+def generatePhoneNumber():
     """
         phone number types:
         0: xxx xxx xxxx
@@ -99,85 +112,73 @@ def generateNumber():
     """
 
     numType = random.randint(0, 6)
-    number = []
+    phoneNumber = []
+
     if numType == 0:
         for i in range(2):
-            for k in range(3):
-                number.append(random.randint(0, 9))
-            number.append(' ')
-        for i in range(4):
-            number.append((random.randint(0, 9)))
+            generateNumberSet(phoneNumber, 3)
+            phoneNumber.append(' ')
+        generateNumberSet(phoneNumber, 4)
     elif numType == 1:
         for i in range(2):
-            for k in range(3):
-                number.append(random.randint(0, 9))
-            number.append('-')
-        for i in range(4):
-            number.append((random.randint(0, 9)))
+            generateNumberSet(phoneNumber, 3)
+            phoneNumber.append('-')
+        generateNumberSet(phoneNumber, 4)
     elif numType == 2:
-        number.append('(')
-        for i in range(3):
-            number.append(random.randint(0, 9))
+        phoneNumber.append('(')
+        generateNumberSet(phoneNumber, 3)
+        phoneNumber.append(')')
 
-        number.append(')')
-        number.append(' ')
+        phoneNumber.append(' ')
 
-        for i in range(3):
-            number.append(random.randint(0, 9))
+        generateNumberSet(phoneNumber, 3)
 
-        number.append(' ')
+        phoneNumber.append(' ')
 
-        for i in range(4):
-            number.append(random.randint(0, 9))
+        generateNumberSet(phoneNumber, 4)
     elif numType == 3:
-        number.append('(')
-        for i in range(3):
-            number.append(random.randint(0, 9))
+        phoneNumber.append('(')
+        generateNumberSet(phoneNumber, 3)
+        phoneNumber.append(')')
 
-        number.append(')')
-        number.append(' ')
+        phoneNumber.append(' ')
 
-        for i in range(3):
-            number.append(random.randint(0, 9))
+        generateNumberSet(phoneNumber, 3)
 
-        number.append('-')
+        phoneNumber.append('-')
 
-        for i in range(4):
-            number.append(random.randint(0, 9))
+        generateNumberSet(phoneNumber, 4)
     elif numType == 4:
         for i in range(2):
-            for k in range(3):
-                number.append(random.randint(0, 9))
-            number.append('.')
-        for i in range(4):
-            number.append(random.randint(0, 9))
+            generateNumberSet(phoneNumber, 3)
+
+            phoneNumber.append('.')
+
+        generateNumberSet(phoneNumber, 4)
+
     elif numType == 5:
-        number.append('(')
+        phoneNumber.append('(')
+        generateNumberSet(phoneNumber, 3)
+        phoneNumber.append(')')
 
-        for i in range(3):
-            number.append(random.randint(0, 9))
+        phoneNumber.append(' ')
 
-        number.append(')')
-        number.append(' ')
+        generateNumberSet(phoneNumber, 3)
 
-        for i in range(3):
-            number.append(random.randint(0, 9))
+        phoneNumber.append('.')
 
-        number.append('.')
-
-        for i in range(4):
-            number.append(random.randint(0, 9))
+        generateNumberSet(phoneNumber, 4)
     elif numType == 6:
-        for i in range(10):
-            number.append(random.randint(0, 9))
+        generateNumberSet(phoneNumber, 10)
 
-    return number
+    return phoneNumber
 
-    #print(number)
-    """
-    for digit in number:
-        print(digit, end='', flush=True)
-    """
+# generate gender
+# generate first name
+# generate surname
+# generate phone number
+phoneNum = generatePhoneNumber()
+# generate SSN
 
-
-generateNumber()
+#for digit in num:
+        #print(digit, end='', flush=True)
