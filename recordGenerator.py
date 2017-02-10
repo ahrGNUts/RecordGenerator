@@ -6,10 +6,10 @@
 # TODO: pull names from male and female first name lists
 import random
 
-# "constants" for number of lines in a file
+# "constants" for number of elements in a file
 MALE_LENGTH = 0
 try:
-    with open('fFirst.txt') as f:
+    with open('mFirst.txt') as f:
         for line in f:
             MALE_LENGTH += 1
 except IOError:
@@ -25,7 +25,7 @@ except IOError:
 
 SURNAME_LENGTH = 0
 try:
-    with open('fFirst.txt') as f:
+    with open('surnames.txt') as f:
         for line in f:
             SURNAME_LENGTH += 1
 except IOError:
@@ -45,7 +45,7 @@ def generateFirstName(gender):
         randomly pulls a first name from a file depending on a
         randomly generated line number and the gender parameter passed to the function
 
-        :return :
+        :return |string| a male or female first or last name:
     """
 
     if gender == 'M':
@@ -61,7 +61,7 @@ def generateLastName():
         randomly pulls a first name from a file depending on a
         randomly generated line number
 
-        :return:
+        :return :
     """
 
 
@@ -71,7 +71,7 @@ def generateGender():
         for simplicity, M/F is used
 
 
-        :return character 'M' or 'F':
+        :return |char| 'M' or 'F':
     """
 
     gender = random.randint(0, 1)
@@ -80,6 +80,8 @@ def generateGender():
         return 'M'
     else:
         return 'F'
+
+
 
 
 def generateNumber():
@@ -93,7 +95,7 @@ def generateNumber():
         5: (xxx) xxx.xxxx
         6: xxxxxxxxxx
 
-    :return list phone number:
+    :return |list| phone number:
     """
 
     numType = random.randint(0, 6)
