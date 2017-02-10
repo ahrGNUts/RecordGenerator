@@ -36,7 +36,7 @@ def pullName(filename):
     """
 
     :param filename filename of a name file:
-    :return a string male or female name at idx index:
+    :return |string| a male or female name at idx index:
     """
     with open(filename) as namefile:
         names = []
@@ -90,8 +90,8 @@ def generateGender():
 def generateNumberSet(numList, numDigits):
     """
 
-    :param numList -- list to have digits appended:
-    :param numDigits -- number of digits appended to numList:
+    :param |list| numList -- list to have digits appended:
+    :param |int| numDigits -- number of digits appended to numList:
     """
     for i in range(numDigits):
         numList.append(random.randint(0, 9))
