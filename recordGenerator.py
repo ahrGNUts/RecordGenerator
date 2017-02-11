@@ -96,6 +96,23 @@ def generateNumberSet(numList, numDigits):
     for i in range(numDigits):
         numList.append(random.randint(0, 9))
 
+# check http://usrecordsearch.com/ssn.htm for information about SSN structure
+def generateSSN():
+    """
+    generate a random SSN and check it against a list of previously generated numbers to ensure that it'
+    not one that's already been assigned
+    :return |list| social security number:
+    """
+
+    ssn = []
+
+    generateNumberSet(ssn, 3)
+    ssn.append('-')
+    generateNumberSet(ssn, 2)
+    ssn.append('-')
+    generateNumberSet(ssn, 3)
+
+    return ssn
 
 def generatePhoneNumber():
     """
@@ -174,11 +191,15 @@ def generatePhoneNumber():
     return phoneNumber
 
 # generate gender
+gender = generateGender()
 # generate first name
+fName = generateFirstName()
 # generate surname
+lName = generateLastName()
 # generate phone number
 phoneNum = generatePhoneNumber()
 # generate SSN
+
 
 #for digit in num:
         #print(digit, end='', flush=True)
