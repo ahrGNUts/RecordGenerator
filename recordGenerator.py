@@ -97,6 +97,8 @@ def generateNumberSet(numList, numDigits):
         numList.append(random.randint(0, 9))
 
 # check http://usrecordsearch.com/ssn.htm for information about SSN structure
+# going to save this for a future version
+# one thing at a time and all that.
 def generateSSN():
     """
     generate a random SSN and check it against a list of previously generated numbers to ensure that it'
@@ -198,7 +200,8 @@ fName = generateFirstName()
 lName = generateLastName()
 # generate phone number
 phoneNum = generatePhoneNumber()
-# generate SSN
+
+
 
 
 #for digit in num:
