@@ -5,6 +5,8 @@
 # surname list for this project was pulled from: https://github.com/enorvelle/NameDatabases
 # TODO: generate random records, put in database
 # TODO: implement a 'no duplication' search function that will make sure no duplicate entries are created
+
+
 import random
 import sql
 import MySQLdb
