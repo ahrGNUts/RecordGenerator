@@ -7,6 +7,7 @@
 # TODO: implement a 'no duplication' search function that will make sure no duplicate entries are created
 import random
 import sql
+import MySQLdb
 
 # "constants" for number of elements in a file
 MALE_LENGTH = 0
@@ -87,6 +88,11 @@ def generateGender():
         return 'M'
     else:
         return 'F'
+
+
+def generateAge():
+
+    return random.randint(18, 100)
 
 
 def generateNumberSet(numList, numDigits):
@@ -194,11 +200,6 @@ def generatePhoneNumber():
 
     return phoneNumber
 
-
-# begin database functions
-
-
-def initDB():
 
 
 # generate gender
