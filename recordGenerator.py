@@ -3,8 +3,10 @@
 # female first name list was pulled from: http://deron.meranda.us/data/census-dist-female-first.txt
 # I also edited the male and female first name lists
 # surname list for this project was pulled from: https://github.com/enorvelle/NameDatabases
-# TODO: pull names from male and female first name lists
+# TODO: generate random records, put in database
+# TODO: implement a 'no duplication' search function that will make sure no duplicate entries are created
 import random
+import sql
 
 # "constants" for number of elements in a file
 MALE_LENGTH = 0
@@ -191,6 +193,13 @@ def generatePhoneNumber():
         generateNumberSet(phoneNumber, 10)
 
     return phoneNumber
+
+
+# begin database functions
+
+
+def initDB():
+
 
 # generate gender
 gender = generateGender()
