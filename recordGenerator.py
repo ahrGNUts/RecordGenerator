@@ -10,6 +10,18 @@
 import random
 import sql
 import MySQLdb
+import sys
+
+# db connection stuff
+try:
+    db = MySQLdb.connect(
+        host = 'localhost',
+        user = 'py-record',
+        passwd = '',
+        db = 'real_fake_doors'
+    )
+except Exception as e:
+    sys.exit('Database not detected')
 
 # "constants" for number of elements in a file
 MALE_LENGTH = 0
@@ -60,10 +72,10 @@ def generateFirstName(gender):
 
     if gender == 'M':
         # open male name file, generate random number, pull name at that line number
-        return pullName('mFile')
+        return pullName('mFirst.txt')
     else:
         # open female name file, generate random number, pull name at that line number
-        return pullName('fFile')
+        return pullName('fFirst.txt')
 
 
 def generateLastName():
@@ -207,7 +219,7 @@ def generatePhoneNumber():
 # generate gender
 gender = generateGender()
 # generate first name
-fName = generateFirstName()
+fName = generateFirstName(gender)
 # generate surname
 lName = generateLastName()
 # generate phone number
