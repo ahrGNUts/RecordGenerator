@@ -7,7 +7,6 @@
 # TODO: implement a 'no duplication' search function that will make sure no duplicate entries are created
 
 
-import random
 import sql
 import MySQLdb
 import sys
@@ -28,21 +27,12 @@ except Exception as e:
 
 cursor = db.cursor()
 
-# create Record object
+# create empty Record object
 record = Record.Record()
 
-# generate gender
-# gender = record.generateGender()
-# generate first name
-# fName = record.generateFirstName(gender)
-# generate surname
-# lName = record.generateLastName()
-# generate phone number
-# phoneNum = record.generatePhoneNumber()
-
-# does the same thing as the commented code above
+# populate each field of
 record.generateRecord()
 
 # debug code; prints generated record
-record.printRecord()
+# record.printRecord()
 

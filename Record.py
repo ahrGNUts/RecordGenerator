@@ -187,6 +187,24 @@ class Record:
             # returns name at a particular index with the newline character stripped out
             return names[idx].strip('\n')
 
+    def insertRecord(self, db, cursor):
+        # insert record in db
+        cursor.execute('''INSERT INTO real_fake_doors.person_info (
+        first_name,
+        last_name,
+        gender,
+        phone_num,
+        age)
+        VALUES(%s, %s, %s, %s, %s''', (self.firstName, self.lastName, self.gender, self.phoneNum, self.age))
+
+        # commit change to db
+        db.commit()
+
+    def recordExists(self, cursor):
+        # check db's duplicates table for phone num record
+        # if exists in duplicates, increment counter for given record
+        # if it doesn't exist in duplicates, insert it, set counter to 1
+
     def printRecord(self):
         print('First name: ')
         print(self.firstName)
