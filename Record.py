@@ -149,11 +149,11 @@ class Record:
             """
 
         if gender == 'M':
-            # open male name file, generate random number, pull name at that line number
-            return self.pullName('mFirst.txt')
+            # open male name file, generate random number, pull name at that line number, and return it properly capitalized
+            return self.pullName('mFirst.txt').capitalize()
         else:
-            # open female name file, generate random number, pull name at that line number
-            return self.pullName('fFirst.txt')
+            # open female name file, generate random number, pull name at that line number, and return it properly capitalized
+            return self.pullName('fFirst.txt').capitalize()
 
     def generateLastName(self):
         """
@@ -162,7 +162,7 @@ class Record:
 
                 :return |string| surname:
             """
-        return self.pullName('surnames.txt')
+        return self.pullName('surnames.txt').capitalize()
 
     def generateNumberSet(self, numList, numDigits):
         """
