@@ -84,12 +84,12 @@ class Record:
             for i in range(2):
                 self.generateNumberSet(phoneNumber, 3)
                 phoneNumber.append(' ')
-                self.generateNumberSet(phoneNumber, 4)
+            self.generateNumberSet(phoneNumber, 4)
         elif numType == 1:
             for i in range(2):
                 self.generateNumberSet(phoneNumber, 3)
                 phoneNumber.append('-')
-                self.generateNumberSet(phoneNumber, 4)
+            self.generateNumberSet(phoneNumber, 4)
         elif numType == 2:
             phoneNumber.append('(')
             self.generateNumberSet(phoneNumber, 3)
@@ -186,4 +186,21 @@ class Record:
             idx = random.randint(0, MALE_LENGTH)
             # returns name at a particular index with the newline character stripped out
             return names[idx].strip('\n')
+
+    def printRecord(self):
+        print('First name: ')
+        print(self.firstName)
+
+        print('Last name: ')
+        print(self.lastName)
+
+        print('Age: ')
+        print(self.age)
+
+        print('Gender: ')
+        print(self.gender)
+
+        print('Phone number: ')
+        for i in range(len(self.phoneNum)):
+            print(self.phoneNum[i], end='', flush=True)
 

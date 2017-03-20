@@ -43,14 +43,6 @@ record = Record.Record()
 # does the same thing as the commented code above
 record.generateRecord()
 
-# debug code
-print(record.firstName)
-print(record.lastName)
-print(record.age)
-print(record.gender)
-print(record.phoneNum)
+# debug code; prints generated record
+record.printRecord()
 
-
-
-#for digit in num:
-        #print(digit, end='', flush=True)
