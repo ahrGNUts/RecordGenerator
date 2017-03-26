@@ -25,6 +25,7 @@ try:
 except IOError:
     print("Surname name file not found.")
 
+
 class Record:
 
     # default constructor
@@ -34,6 +35,14 @@ class Record:
         self.lastName = ''
         self.phoneNum = ''
         self.age = ''
+
+    # debug method
+    def setRecord(self, gender, first, last, phone, age):
+        self.gender = gender
+        self.firstName = first
+        self.lastName = last
+        self.phoneNum = phone
+        self.age = age
 
     # generates complete record
     def generateRecord(self):
@@ -189,23 +198,78 @@ class Record:
 
     def insertRecord(self, db, cursor):
         # insert record in db
-        cursor.execute('''INSERT INTO real_fake_doors.person_info (
-        first_name,
-        last_name,
-        gender,
-        phone_num,
-        age)
-        VALUES(%s, %s, %s, %s, %s''', (self.firstName, self.lastName, self.gender, self.phoneNum, self.age))
+        updateType = [0]
+        if self.recordExists(cursor, updateType):
+            self.updateDuplicateRecord(db, cursor, updateType)
+        else:
+            cursor.execute('''INSERT INTO person_info (
+            first_name,
+            last_name,
+            gender,
+            phone_num,
+            age
+            )
+            VALUES(%s, %s, %s, %s, %s)''', (self.firstName, self.lastName, self.gender, self.phoneNum, self.age))
 
-        # commit change to db
+            # commit change to db
+            db.commit()
+
+    def updateDuplicateRecord(self, db, cursor, updateType):
+        # update counter value in duplicates
+        if updateType[0] == 1:
+            cursor.execute(''' UPDATE duplicates SET num_duplicates=num_duplicates+1
+                                WHERE phone_num LIKE %s''', self.phoneNum)
+        elif updateType[0] == 2:
+            # insert new record into 'duplicates' and 'duplicate_details' tables
+            cursor.execute('''INSERT INTO duplicates (
+                        phone_num,
+                        num_duplicates
+                        )
+                        VALUES(%s, %s)''', (self.phoneNum, 0))
+        else:
+            print("Something has gone horribly wrong...")
+
+        # add details of new duplicate instance into table
+        cursor.execute('''INSERT INTO duplicate_details (
+                    first_name,
+                    last_name,
+                    gender,
+                    phone_num,
+                    age
+                    ) VALUES(%s, %s, %s, %s, %s)''',
+                       (self.firstName, self.lastName, self.gender, self.phoneNum, self.age))
+
         db.commit()
 
-    def recordExists(self, cursor):
-        # check db's duplicates table for phone num record
-        # if exists in duplicates, increment counter for given record
-        # if it doesn't exist in duplicates, insert it, set counter to 1
 
-    def printRecord(self):
+    def recordExists(self, cursor, updateType):
+        # check db's duplicates table for phone num record
+        # if exists in duplicates, increment counter for given record, add record info to duplicate_details
+        # if it doesn't exist in duplicates, search person_info
+        # if found in person_info:
+        """
+            1. insert phone num into table 'duplicates'.phone_num
+            2. set duplicates.num_duplicates to 1
+            3. add record info to table 'duplicate_details'
+        """
+        num = ''.join(self.phoneNum)
+
+        duplicateExists = cursor.execute('SELECT * FROM duplicates WHERE phone_num LIKE %s', num)
+
+        if duplicateExists:
+            updateType = [1]
+            return True
+        else:
+            recExists = cursor.execute('SELECT * FROM person_info WHERE phone_num LIKE %s', num)
+
+            if recExists:
+                updateType = [2]
+                return True
+            else:
+                return False
+
+
+    def displayRecord(self):
         print('First name: ')
         print(self.firstName)
 
