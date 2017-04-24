@@ -270,7 +270,7 @@ class Record:
 
 
     def displayRecord(self):
-        print('First name: ')
+        print('\nFirst name: ')
         print(self.firstName)
 
         print('Last name: ')
@@ -285,4 +285,6 @@ class Record:
         print('Phone number: ')
         for i in range(len(self.phoneNum)):
             print(self.phoneNum[i], end='', flush=True)
+
+        print('\n')
 
