@@ -74,79 +74,27 @@ class Record:
 
     def generatePhoneNumber(self):
         """
-                phone number types:
-                0: xxx xxx xxxx
-                1: xxx-xxx-xxxx
-                2: (xxx) xxx xxxx
-                3: (xxx) xxx-xxxx
-                4: xxx.xxx.xxxx
-                5: (xxx) xxx.xxxx
-                6: xxxxxxxxxx
+                generates a phone number in the format of:
+                (xxx) xxx-xxxx
+                
+                stripped down from previous state for less work while querying db and looking for duplicates
 
-            :return |list| phone number:
+            :return |string| phone number:
             """
 
-        numType = random.randint(0, 6)
         phoneNumber = []
 
-        if numType == 0:
-            for i in range(2):
-                self.generateNumberSet(phoneNumber, 3)
-                phoneNumber.append(' ')
-            self.generateNumberSet(phoneNumber, 4)
-        elif numType == 1:
-            for i in range(2):
-                self.generateNumberSet(phoneNumber, 3)
-                phoneNumber.append('-')
-            self.generateNumberSet(phoneNumber, 4)
-        elif numType == 2:
-            phoneNumber.append('(')
-            self.generateNumberSet(phoneNumber, 3)
-            phoneNumber.append(')')
+        phoneNumber.append('(')
+        self.generateNumberSet(phoneNumber, 3)
+        phoneNumber.append(')')
 
-            phoneNumber.append(' ')
+        phoneNumber.append(' ')
 
-            self.generateNumberSet(phoneNumber, 3)
+        self.generateNumberSet(phoneNumber, 3)
+        phoneNumber.append('-')
+        self.generateNumberSet(phoneNumber, 4)
 
-            phoneNumber.append(' ')
-
-            self.generateNumberSet(phoneNumber, 4)
-        elif numType == 3:
-            phoneNumber.append('(')
-            self.generateNumberSet(phoneNumber, 3)
-            phoneNumber.append(')')
-
-            phoneNumber.append(' ')
-
-            self.generateNumberSet(phoneNumber, 3)
-
-            phoneNumber.append('-')
-
-            self.generateNumberSet(phoneNumber, 4)
-        elif numType == 4:
-            for i in range(2):
-                self.generateNumberSet(phoneNumber, 3)
-
-                phoneNumber.append('.')
-
-            self.generateNumberSet(phoneNumber, 4)
-
-        elif numType == 5:
-            phoneNumber.append('(')
-            self.generateNumberSet(phoneNumber, 3)
-            phoneNumber.append(')')
-
-            phoneNumber.append(' ')
-
-            self.generateNumberSet(phoneNumber, 3)
-
-            phoneNumber.append('.')
-
-            self.generateNumberSet(phoneNumber, 4)
-        elif numType == 6:
-            self.generateNumberSet(phoneNumber, 10)
-
-        return phoneNumber
+        return str(phoneNumber)
 
 
     def generateFirstName(self, gender):
@@ -182,12 +130,14 @@ class Record:
         for i in range(numDigits):
             numList.append(random.randint(0, 9))
 
+
+
     def pullName(self, filename):
         """
 
             :param filename filename of a name file:
             :return |string| a male or female name at idx index:
-            """
+        """
         with open(filename) as namefile:
             names = []
             for name in namefile:
@@ -252,15 +202,18 @@ class Record:
             2. set duplicates.num_duplicates to 1
             3. add record info to table 'duplicate_details'
         """
-        num = ''.join(self.phoneNum)
+        num = ''.join(str(n) for n in self.phoneNum)
 
-        duplicateExists = cursor.execute('SELECT * FROM duplicates WHERE phone_num LIKE %s', num)
+        command = "SELECT * FROM duplicates WHERE phone_num LIKE '{0}'".format(num)
+
+        duplicateExists = cursor.execute(command)
 
         if duplicateExists:
             updateType = [1]
             return True
         else:
-            recExists = cursor.execute('SELECT * FROM person_info WHERE phone_num LIKE %s', num)
+            command = "SELECT * FROM person_info WHERE phone_num LIKE '{0}'".format(num) # chokes here; expected str instance, bytes found
+            recExists = cursor.execute(command)
 
             if recExists:
                 updateType = [2]
