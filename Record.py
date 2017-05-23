@@ -94,7 +94,9 @@ class Record:
         phoneNumber.append('-')
         self.generateNumberSet(phoneNumber, 4)
 
-        return str(phoneNumber)
+        tmp = ''.join(map(str, phoneNumber))
+
+        return tmp
 
 
     def generateFirstName(self, gender):
@@ -202,9 +204,9 @@ class Record:
             2. set duplicates.num_duplicates to 1
             3. add record info to table 'duplicate_details'
         """
-        num = ''.join(str(n) for n in self.phoneNum)
+        #num = ''.join(str(n) for n in self.phoneNum)
 
-        command = "SELECT * FROM duplicates WHERE phone_num LIKE '{0}'".format(num)
+        command = "SELECT * FROM duplicates WHERE phone_num LIKE '{0}'".format(self.phoneNum)
 
         duplicateExists = cursor.execute(command)
 
@@ -212,7 +214,7 @@ class Record:
             updateType = [1]
             return True
         else:
-            command = "SELECT * FROM person_info WHERE phone_num LIKE '{0}'".format(num) # chokes here; expected str instance, bytes found
+            command = "SELECT * FROM person_info WHERE phone_num LIKE '{0}'".format(self.phoneNum) # chokes here; expected str instance, bytes found
             recExists = cursor.execute(command)
 
             if recExists:
